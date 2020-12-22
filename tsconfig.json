@@ -10,7 +10,7 @@
         "declaration": true,
         "declarationDir": "types",
         "module": "CommonJS",
-        "target": "ES3",
+        "target": "ES5",
         "lib": [
             "ESNext"
         ],
@@ -21,7 +21,6 @@
             "node"
         ],
         "sourceMap": true,
-        "incremental": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
         "allowSyntheticDefaultImports": true,

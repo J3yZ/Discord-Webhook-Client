@@ -10,15 +10,15 @@ A Simple wrapper around Discord Webhook endpoints.
 
 ## Example Usage  
 ```javascript
-const { Client } = require("discord-webhook-client");
-// import {Client} from "discord-webhook-client";
+const { Webhook } = require("discord-webhook-client");
+// import { Webhook } from "discord-webhook-client";
 
-const webhook = new Client(
+const webhook = new Webhook(
     {
         url: "webhook-url"
     });
 /*
-or new Client(
+or new Webhook(
     {
         id: "webhook-id", 
         token: "webhook-token
