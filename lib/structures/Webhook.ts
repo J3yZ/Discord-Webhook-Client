@@ -1,5 +1,5 @@
 import RestHandler from '../rest/RestHandler';
-import Util from '../util/constants';
+import constants from '../util/constants';
 import { isConstantString } from '../util/types';
 import Embed from './Embed';
 import Message, { MessageOptions } from './Message';
@@ -46,7 +46,14 @@ export default class Webhook {
      * Base URL of the webhook url, the domain discord resides at and the path
      * @private
      */
-    private readonly baseURL: string;
+    public readonly baseURL: string;
+
+    /**
+     * Util functions/defs
+     */
+    public readonly util = {
+        constants,
+    };
 
     /**
      * Webhook URL, constructed from the ID and Token if not constructed with a URL
@@ -57,11 +64,10 @@ export default class Webhook {
      * Rest manager for sending HTTP requests
      * @private
      */
-    private readonly rest: RestHandler;
+    readonly rest: RestHandler;
 
     constructor(readonly options: LoginOptions) {
         this.baseURL = 'https://discord.com/api/webhooks' ?? options.apiURL;
-        this.rest = new RestHandler(this);
 
         if ('url' in options && options.url !== undefined) {
             this.URL = options.url;
@@ -78,6 +84,7 @@ export default class Webhook {
                 'You must provide either a webhook URL or a webhook ID/Token when constructing the Webhook Client',
             );
         }
+        this.rest = new RestHandler(this);
     }
 
     /**
@@ -94,7 +101,19 @@ export default class Webhook {
                 content: ICS ? content : '',
                 embed: extractedEmbed instanceof Embed ? extractedEmbed.toEmbed() : extractedEmbed,
             })
-            .then(data => new Message(data));
+            .then(
+                () =>
+                    new Message(
+                        {
+                            content: ICS ? (content as string) : '',
+                            id: this.id,
+                            channel_id: this.channelID,
+                            guild_id: this.guildID,
+                            embed: ICS ? {} : ((content as MessageOptions).embed as Embed),
+                        },
+                        this,
+                    ),
+            );
     }
 
     /**
@@ -105,7 +124,7 @@ export default class Webhook {
     public fetch(): Promise<this> {
         return this.rest.get<FetchWebhookResponse>(`/${this.id}/${this.token}`).then(data => {
             this.name = data.name;
-            this.avatarURL = `${Util.CDN}/avatars/${this.id}/${data.avatar}`;
+            this.avatarURL = `${this.util.constants.CDN}/avatars/${this.id}/${data.avatar}`;
             this.channelID = data.channel_id;
             this.guildID = data.guild_id;
 

@@ -5,17 +5,14 @@ import APIError from '../structures/APIError';
 import Webhook from '../structures/Webhook';
 
 export default class RestHandler {
-    private readonly URL: string;
-
     constructor(public readonly client: Webhook) {
-        this.URL = client.URL;
         // https://discord.com/api/webhooks/:id/:token
     }
 
     private async make(data: MakeOptions): Promise<Response> {
-        const request = await fetch(this.URL + data.path, {
+        const request = await fetch(this.client.baseURL + data.path, {
             method: data.method,
-            body: data.body ? JSON.stringify(data.body) : undefined,
+            body: data.body ? JSON.stringify(data.body) : '{}',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -28,59 +25,55 @@ export default class RestHandler {
         return request;
     }
 
-    public get<T extends Record<string, any>>(path: string): Promise<Record<string, any> | T> {
+    public get<T extends Record<string, any>>(path: string): Promise<T | Record<string, any>> {
         return this.make({
             method: 'GET',
             path: path,
-        }).then(x => x.json());
+        }).then(x => x.json().catch(() => ({})));
     }
 
     public post<T extends Record<string, any>>(
         path: string,
         body: Record<string, any>,
-    ): Promise<Record<string, any> | T> {
+    ): Promise<T | Record<string, any>> {
         return this.make({
             method: 'POST',
             body: body,
             path: path,
-        }).then(async x => {
-            const temp = await x.json();
-            console.log(temp);
-            return temp;
-        });
+        }).then(x => x.json().catch(() => ({})));
     }
 
     public delete<T extends Record<string, any>>(
         path: string,
         body?: Record<string, any>,
-    ): Promise<Record<string, any> | T> {
+    ): Promise<T | Record<string, any>> {
         return this.make({
             method: 'DELETE',
             body: body,
             path: path,
-        }).then(x => x.json());
+        }).then(x => x.json().catch(() => ({})));
     }
 
     public patch<T extends Record<string, any>>(
         path: string,
         body: Record<string, any>,
-    ): Promise<Record<string, any> | T> {
+    ): Promise<T | Record<string, any>> {
         return this.make({
             method: 'PATCH',
             body: body,
             path: path,
-        }).then(x => x.json());
+        }).then(x => x.json().catch(() => ({})));
     }
 
     public put<T extends Record<string, any>>(
         path: string,
         body?: Record<string, any>,
-    ): Promise<Record<string, any> | T> {
+    ): Promise<T | Record<string, any>> {
         return this.make({
             method: 'PUT',
             body: body,
             path: path,
-        }).then(x => x.json());
+        }).then(x => x.json().catch(() => ({})));
     }
 }
 

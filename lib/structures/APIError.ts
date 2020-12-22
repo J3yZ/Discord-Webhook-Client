@@ -5,6 +5,6 @@ export default class APIError extends Error {
         public readonly path: string,
         public readonly status: number,
     ) {
-        super(`[DiscordAPIError] - ${msg}`);
+        super(`[DiscordAPIError::${status}::${method}] - ${msg} ${path}`);
     }
 }
