@@ -1,0 +1,35 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "alwaysStrict": true,
+        "moduleResolution": "node",
+        "removeComments": true,
+        "pretty": true,
+        "outDir": "./dist",
+        "rootDir": "./lib",
+        "declaration": true,
+        "declarationDir": "types",
+        "module": "CommonJS",
+        "target": "ES3",
+        "lib": [
+            "ESNext"
+        ],
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "node"
+        ],
+        "sourceMap": true,
+        "incremental": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "noEmitHelpers": false,
+        "importHelpers": false
+    },
+    "exclude": [
+        "dist/**",
+        "types/**"
+    ]
+}

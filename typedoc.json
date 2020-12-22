@@ -1,0 +1,13 @@
+{
+    "name": "discord-webhook-client",
+    "mode": "modules",
+    "out": "docs",
+    "theme": "default",
+    "ignoreCompilerErrors": "true",
+    "preserveConstEnums": "true",
+    "exclude": ["dist/**", "types/**"],
+    "stripInternal": "false",
+    "excludeExternals": "true",
+    "media": "media",
+    "readme": "README.md"
+}
