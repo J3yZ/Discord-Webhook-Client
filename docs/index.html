@@ -1,0 +1,199 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>discord-webhook-client</title>
+	<meta name="description" content="Documentation for discord-webhook-client">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">discord-webhook-client</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1>discord-webhook-client</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#discord-webhook-client" id="discord-webhook-client" style="color: inherit; text-decoration: none;">
+					<h1>Discord-Webhook-Client</h1>
+				</a>
+				<p>A Simple wrapper around Discord Webhook endpoints.</p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of Contents</h2>
+				</a>
+				<ul>
+					<li><a href="#about">About</a>  </li>
+					<li><a href="#documentation">Documentation</a>  </li>
+					<li><a href="#installation">Installation</a>  </li>
+					<li><a href="#contributing">Contributing</a>  </li>
+					<li><a href="#LICENSING">License</a>  </li>
+				</ul>
+				<a href="#example-usage" id="example-usage" style="color: inherit; text-decoration: none;">
+					<h2>Example Usage</h2>
+				</a>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> { Webhook } = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;discord-webhook-client&quot;</span>);
+<span class="hljs-comment">// import { Webhook } from &quot;discord-webhook-client&quot;;</span>
+
+<span class="hljs-keyword">const</span> webhook = <span class="hljs-keyword">new</span> Webhook(
+    {
+        <span class="hljs-attr">url</span>: <span class="hljs-string">&quot;webhook-url&quot;</span>
+    });
+<span class="hljs-comment">/*
+or new Webhook(
+    {
+        id: &quot;webhook-id&quot;, 
+        token: &quot;webhook-token
+    })
+*/</span>
+
+webhook.send(<span class="hljs-string">&quot;message&quot;</span>);
+webhook.send({
+    <span class="hljs-attr">embed</span>: {
+        <span class="hljs-comment">// ...embed data</span>
+    }
+})
+webhook.send({
+    <span class="hljs-keyword">new</span> Embed().setTitle(<span class="hljs-string">&quot;Test Embed!&quot;</span>) <span class="hljs-comment">//... and other embed builder methods</span>
+});
+webhook.editMessage(<span class="hljs-string">&quot;msg_id&quot;</span>, <span class="hljs-string">&quot;new content&quot;</span>);</code></pre>
+				<a href="#about" id="about" style="color: inherit; text-decoration: none;">
+					<h2>About</h2>
+				</a>
+				<p>This project is simply a very minimalistic wrapper over the Discord Webhook API. The intention is not to cache anything and to make this webhook client as minimalistic as possible. It is written in TypeScript for included typings.</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<pre><code>You are expected <span class="hljs-keyword">to</span> have a reasonably up-<span class="hljs-keyword">to</span>-<span class="hljs-built_in">date</span> Node.js <span class="hljs-built_in">version</span>. The library <span class="hljs-keyword">is</span> only testing <span class="hljs-keyword">on</span> <span class="hljs-keyword">the</span> LTS <span class="hljs-built_in">version</span> <span class="hljs-keyword">of</span> Node.js <span class="hljs-keyword">as</span> <span class="hljs-keyword">of</span> this <span class="hljs-built_in">date</span> (currently Node v14).</code></pre>
+				<p>Install using NPM</p>
+				<pre><code>npm <span class="hljs-keyword">install</span> discord-webhook-<span class="hljs-keyword">client</span></code></pre>
+				<a href="#documentation" id="documentation" style="color: inherit; text-decoration: none;">
+					<h2>Documentation</h2>
+				</a>
+				<p>Documentation is avaliable <a href="https://zaida04.github.io/Discord-Webhook-Client/">here</a></p>
+				<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+					<h2>Contributing</h2>
+				</a>
+				<p>Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are <strong>greatly appreciated</strong>.</p>
+				<ol>
+					<li>Fork the Project</li>
+					<li>Create your Feature Branch (<code>git checkout -b feature/AmazingFeature</code>)</li>
+					<li>Commit your Changes (<code>git commit -m &#39;Add some AmazingFeature&#39;</code>)</li>
+					<li>Push to the Branch (<code>git push origin feature/AmazingFeature</code>)</li>
+					<li>Open a Pull Request</li>
+				</ol>
+				<p><strong>Please ensure your commits pass the tests, lints, and builds. This means you should test it locally before pushing.</strong></p>
+				<a href="#licensing" id="licensing" style="color: inherit; text-decoration: none;">
+					<h2>LICENSING</h2>
+				</a>
+				<blockquote>
+					<p><strong>discord-webhook-client</strong> © <a href="https://github.com/zaida04">zaida04</a>, Released under the <a href="https://github.com/zaida04/discord-webhook-client/blob/master/LICENSE">MIT</a> License.  </p>
+				</blockquote>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_rest_resthandler_.html">&quot;rest/<wbr>Rest<wbr>Handler&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_apierror_.html">&quot;structures/APIError&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_embed_.html">&quot;structures/<wbr>Embed&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_message_.html">&quot;structures/<wbr>Message&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_structures_webhook_.html">&quot;structures/<wbr>Webhook&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_util_types_.html">&quot;util/types&quot;</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
