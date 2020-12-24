@@ -1,8 +1,8 @@
+import { APIAttachment, APIEmbed, APIMessage } from 'discord-api-types';
+
 import RestHandler from '../rest/RestHandler';
 import constants from '../util/constants';
 import { isConstantString } from '../util/types';
-import Embed from './Embed';
-import Message, { MessageOptions } from './Message';
 
 /**
  * The main Webhook client
@@ -93,27 +93,35 @@ export default class Webhook {
      * @param content The content of the message to send.
      * @returns Returns a constructed message object.
      */
-    public send(content: string | MessageOptions): Promise<Message> {
+    public send(content: string | MessageOptions): Promise<PartialMessage> {
         const ICS = isConstantString(content);
-        const extractedEmbed = ICS ? {} : (content as MessageOptions).embed;
+        const extractedEmbed = ICS ? ([] as APIEmbed[]) : (content as MessageOptions).embeds;
         return this.rest
             .post(`/${this.id}/${this.token}`, {
                 content: ICS ? content : '',
-                embed: extractedEmbed instanceof Embed ? extractedEmbed.toEmbed() : extractedEmbed,
+                embeds: extractedEmbed,
             })
             .then(
                 () =>
-                    new Message(
-                        {
-                            content: ICS ? (content as string) : '',
-                            id: this.id,
-                            channel_id: this.channelID,
-                            guild_id: this.guildID,
-                            embed: ICS ? {} : ((content as MessageOptions).embed as Embed),
-                        },
-                        this,
-                    ),
+                    ({
+                        content: ICS ? (content as string) : '',
+                        id: this.id,
+                        channel_id: this.channelID,
+                        guild_id: this.guildID,
+                        embeds: ICS ? ([] as APIEmbed[]) : (content as MessageOptions).embeds,
+                    } as PartialMessage),
             );
+    }
+
+    /**
+     * Edit a message belonging to this webhook
+     */
+    public editMessage(msg: string | APIMessage, newContent: string | MessageOptions): Promise<APIMessage> {
+        const ICS = isConstantString(newContent);
+        return this.rest.patch<APIMessage>(`${this.URL}/messages/${msg instanceof Object ? msg.id : msg}`, {
+            content: ICS ? (newContent as string) : '',
+            embeds: ICS ? ([] as APIEmbed[]) : (newContent as MessageOptions).embeds,
+        }) as Promise<APIMessage>;
     }
 
     /**
@@ -149,4 +157,17 @@ export interface LoginOptions {
     token?: string;
     url?: string;
     apiURL?: string;
+}
+
+export interface MessageOptions {
+    embeds?: APIEmbed[];
+    attachments?: APIAttachment[];
+}
+
+export interface PartialMessage {
+    content: string;
+    id: string;
+    channel_id: string | null;
+    guild_id: string | null;
+    embeds: APIEmbed[];
 }

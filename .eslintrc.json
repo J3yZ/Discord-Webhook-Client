@@ -170,6 +170,7 @@
         "no-unneeded-ternary": "warn",
         "no-whitespace-before-property": "warn",
         "nonblock-statement-body-position": "warn",
+        "@typescript-eslint/no-non-null-assertion": "off",
         "object-curly-spacing": [
             "warn",
             "always"
