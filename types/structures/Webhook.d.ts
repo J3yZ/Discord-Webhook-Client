@@ -1,5 +1,5 @@
+import { APIAttachment, APIEmbed, APIMessage } from 'discord-api-types';
 import RestHandler from '../rest/RestHandler';
-import Message, { MessageOptions } from './Message';
 export default class Webhook {
     readonly options: LoginOptions;
     readonly id: string;
@@ -17,7 +17,8 @@ export default class Webhook {
     readonly URL: string;
     readonly rest: RestHandler;
     constructor(options: LoginOptions);
-    send(content: string | MessageOptions): Promise<Message>;
+    send(content: string | MessageOptions): Promise<PartialMessage>;
+    editMessage(msg: string | APIMessage, newContent: string | MessageOptions): Promise<APIMessage>;
     fetch(): Promise<this>;
 }
 export interface FetchWebhookResponse {
@@ -35,4 +36,15 @@ export interface LoginOptions {
     token?: string;
     url?: string;
     apiURL?: string;
+}
+export interface MessageOptions {
+    embeds?: APIEmbed[];
+    attachments?: APIAttachment[];
+}
+export interface PartialMessage {
+    content: string;
+    id: string;
+    channel_id: string | null;
+    guild_id: string | null;
+    embeds: APIEmbed[];
 }

@@ -4,3 +4,4 @@ dist/
 .npmrc
 *.tsbuildinfo
 *.log
+types/

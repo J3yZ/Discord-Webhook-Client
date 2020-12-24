@@ -105,7 +105,6 @@ export default class Webhook {
                 () =>
                     ({
                         content: ICS ? (content as string) : '',
-                        id: this.id,
                         channel_id: this.channelID,
                         guild_id: this.guildID,
                         embeds: ICS ? ([] as APIEmbed[]) : (content as MessageOptions).embeds,
